@@ -1,2 +1,18 @@
 services:
+  db:
+    image: postgres:latest
+    restart: unless-stopped
+    ports:
+      - ${JM_DATABASE_PORT:-5432}:5432
+    environment:
+      POSTGRES_USER: ${JM_DATABASE_USER}
+      POSTGRES_PASSWORD: ${JM_DATABASE_PASSWORD}
+      POSTGRES_DB: ${JM_DATABASE_NAME}
+    volumes:
+      - db:/var/lib/postgressql/data
+      
+  volumes:
+      db:
+        driver: local
+
   
